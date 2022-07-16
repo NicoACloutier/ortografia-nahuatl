@@ -28,12 +28,15 @@ def main():
     text = file.read()
     file.close()
     
-    #text = sf.spanish_detect(text)
+    output_file = input('Output file: ')
+    
+    text, esp_list = sf.spanish_detect(text)
+    print(esp_list)
     
     #remove vowels with diacritical marks
     text = sf.replace_diacritics(text)
     
-    text = text.lower()
+    #text = text.lower()
     
     if "'" in words['cahci']:
         text = text.replace("'", 'h')
@@ -78,9 +81,8 @@ def main():
         text = sf.ureplace(text)
     
     #add spanish words back from list, one at a time
-    #text = sf.spanish_addback(text)
+    text = sf.spanish_addback(text, esp_list)
     
-    output_file = input('Output file: ')
     with open(output_file, 'w', encoding='utf8') as f:
         f.write(text[1:])
     
