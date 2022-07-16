@@ -33,7 +33,8 @@ def spanish_detect(text):
     for word in esp_words:
         esp_pattern += '%s|' %word
     esp_pattern += '🦕)(?=[- .,?:!;])'
-    esp_list = re.findall(esp_pattern, text, re.I)
+    esp_pattern = re.compile(esp_pattern, re.I)
+    esp_list = re.findall(esp_pattern, text)
     text = re.sub(esp_pattern, '🐃', text)
     return text, esp_list
 
