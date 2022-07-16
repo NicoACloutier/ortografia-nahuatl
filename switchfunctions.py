@@ -27,39 +27,20 @@ diacritics = {
 'Ö': 'A'
 }
 
-
-#I apologize to programmers everywhere for the following two functions. I realize they are bad, I tried to make them better, I could not.
-
-#replace Spanish words in text with placeholder emoji denoting case and number with the index in the list of Spanish words
+#replace Spanish words in text with placeholder emoji, get list of Spanish words/proper nouns in order
 def spanish_detect(text):
+    esp_pattern = '(?<=[- ])('
     for word in esp_words:
-        list_index = esp_words.index(word)
-        lower_pattern = re.compile('(?<=[- ])%s(?=[- .,?:!;])' %word.lower())
-        text = re.sub(lower_pattern, '😀%s' %list_index, text)
-        
-        capitalize_pattern = re.compile('(?<=[- ])%s(?=[- .,?:!;])' %word.capitalize())
-        text = re.sub(capitalize_pattern, '🦕%s' %list_index, text)
-        
-        upper_pattern = re.compile('(?<=[- ])%s(?=[- .,?:!;])' %word.upper())
-        text = re.sub(upper_pattern, '🐃%s' %list_index, text)
-    return text
+        esp_pattern += '%s|' %word
+    esp_pattern += '🦕)(?=[- .,?:!;])'
+    esp_list = re.findall(esp_pattern, text, re.I)
+    text = re.sub(esp_pattern, '🐃', text)
+    return text, esp_list
 
 #add Spanish words back, unchanged by orthographical changes to the text.
-def spanish_addback(text):
-    emoji_list = ['😀', '🦕', '🐃']
-    for emoji in emoji_list:
-        addback_pattern = re.compile('%s\d+' %emoji)
-        match_list = re.findall(addback_pattern, text)
-        for match in match_list:
-            index_for_match = re.sub('[😀🦕🐃](?=\d+)', '', match)
-            match_index = int(index_for_match)
-            word = esp_words[match_index]
-            if emoji == '😀':
-                text = text.replace(match, word)
-            elif emoji == '🦕':
-                text = text.replace(match, word.capitalize())
-            elif emoji == '🐃':
-                text = text.replace(match, word.upper())
+def spanish_addback(text, esp_list):
+    for word in esp_list:
+        text = text.replace('🐃', word, 1)
     return text
     
 #replace diacriticized characters with non-diacriticized counterpart
