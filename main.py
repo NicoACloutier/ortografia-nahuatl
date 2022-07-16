@@ -31,12 +31,9 @@ def main():
     output_file = input('Output file: ')
     
     text, esp_list = sf.spanish_detect(text)
-    print(esp_list)
     
     #remove vowels with diacritical marks
     text = sf.replace_diacritics(text)
-    
-    #text = text.lower()
     
     if "'" in words['cahci']:
         text = text.replace("'", 'h')
@@ -85,6 +82,8 @@ def main():
     
     with open(output_file, 'w', encoding='utf8') as f:
         f.write(text[1:])
+        
+    print('\nTerminado')
     
 if __name__ == '__main__':
     main()
