@@ -29,10 +29,10 @@ diacritics = {
 
 #replace Spanish words in text with placeholder emoji, get list of Spanish words/proper nouns in order
 def spanish_detect(text):
-    esp_pattern = '(?<=[- ])('
+    esp_pattern = '(?<=[-^ ])('
     for word in esp_words:
         esp_pattern += '%s|' %word
-    esp_pattern += '🦕)(?=[- .,?:!;])'
+    esp_pattern += '🦕)(?=[- .,?:!;$])'
     esp_pattern = re.compile(esp_pattern, re.I)
     esp_list = re.findall(esp_pattern, text)
     text = re.sub(esp_pattern, '🐃', text)
@@ -52,13 +52,12 @@ def replace_diacritics(text):
     
 #replace variations of irrealis plural suffix with <zceh>
 def sehreplace(text):
-    seh_pattern = re.compile('(?<![- .,?:!;sz])[cs]e[hj]?(?=[- .,?:!;])')
+    seh_pattern = re.compile('(?<![-^ .,?:!;sz])[cs]e[hj]?(?=[- .,?:!;]$)')
     text = re.sub(seh_pattern, 'zceh', text)
-    seh_pattern = re.compile('(?<![- .,?:!;SZsz])[CScs]e[hj]?(?=[- .,?:!;])')
+    seh_pattern = re.compile('(?<![-^ .,?:!;SZsz])[CS]E[HJ]?(?=[- .,?:!;$])')
     text = re.sub(seh_pattern, 'ZCEH', text)
     return text
     
-#replace <kw> with <cu>/<uc>
 def kwreplace(text):
     coda_pattern = re.compile('kw(?![aeiouAEIOU])')
     text = re.sub(coda_pattern, 'uc', text)
@@ -69,15 +68,13 @@ def kwreplace(text):
     text = text.replace('KW', 'CU')
     return text
 
-#replace word-final <li> with <lli>
 def llreplace(text):
-    ll_pattern = re.compile('(?<![tT])li(?=[- .,?:!;])')
+    ll_pattern = re.compile('(?<![tTlL])li(?=[-$ .,?:!;])')
     text = re.sub(ll_pattern, 'lli', text)
-    ll_pattern = re.compile('(?<![tT])LI(?=[- .,?:!;])')
+    ll_pattern = re.compile('(?<![tTlL])LI(?=[-$ .,?:!;])')
     text = re.sub(ll_pattern, 'LLI', text)
     return text
     
-#replace <s> with <c>/<z>
 def sreplace(text):
     c_pattern = re.compile('s(?=[eiEI])')
     text = re.sub(c_pattern, 'c', text)
@@ -87,7 +84,6 @@ def sreplace(text):
     text = text.replace('S', 'Z')
     return text
 
-#replace <k> with <c>/<qu>
 def kreplace(text):
     kc_pattern = re.compile('k(?=[eiEI])')
     text = re.sub(kc_pattern, 'qu', text)
@@ -98,8 +94,7 @@ def kreplace(text):
     text = text.replace('k', 'c')
     text = text.replace('K', 'C')
     return text
-  
-#replace <w> with <hu>/<uh>
+        
 def wreplace(text):
     w_pattern = re.compile('w(?=[aeioAEIO])')
     text = re.sub(w_pattern, 'hu', text)
@@ -113,13 +108,12 @@ def wreplace(text):
     text = text.replace('w', 'uh')
     return text
     
-#replace <u> with <hu>/<uh>
 def ureplace(text):
-    u_pattern = re.compile('(?<![qcQC])u(?=[aeioAEIO])')
+    u_pattern = re.compile('(?<![qhcQHC])u(?=[aeioAEIO])')
     text = re.sub(u_pattern, 'hu', text)
-    u_pattern = re.compile('(?<![qcQC])U(?=[aeio])')
+    u_pattern = re.compile('(?<![qhcQHC])U(?=[aeio])')
     text = re.sub(u_pattern, 'Hu', text)
-    u_pattern = re.compile('(?<![qcQC])U(?=[AEIO])')
+    u_pattern = re.compile('(?<![qhcQHC])U(?=[AEIO])')
     text = re.sub(u_pattern, 'HU', text)
     coda_u_pattern = re.compile('(?<![qhcQHC])u')
     text = re.sub(coda_u_pattern, 'uh', text)
