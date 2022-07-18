@@ -3,6 +3,8 @@ def main():
     import switchfunctions as sf
     import re
     
+    #dictionary storing the words in the classical orthography
+    #along with how they write it
     words = {
     'nochan': '', 
     'xalli': '', 
@@ -30,15 +32,17 @@ def main():
     
     output_file = input('Output file: ')
     
+    #remove spanish words from text so they aren't changed
     text, esp_list = sf.spanish_detect(text)
     
-    #remove vowels with diacritical marks
+    #get rid of diacritics
     text = sf.replace_diacritics(text)
     
+    #if they write glottal stop/fricative as <'> , replace with <h>
     if "'" in words['cahci']:
         text = text.replace("'", 'h')
     
-    #if they write <o> with <u>, replace the <u> with <o>
+    #if they write <o> as <u>, replace with <o>
     if 'u' in words['nochan']:
         text = text.replace('u', 'o') 
     
@@ -46,11 +50,11 @@ def main():
     if 'kw' in words['neuctli']:
         text = sf.kwreplace(text)
     
-    #replaces plural irrealis suffix with <zceh>
+    #if they write plural irrealis suffix as other than <zceh>, replace with <zceh>
     if not words['matizceh'].endswith('zceh'):
         text = sf.sehreplace(text)
     
-    #replace single-l absolutive suffix <li> with double-l <lli>
+    #if they write lateral absolutive suffix with <li>, replace with <lli>
     if 'ali' in words['calli']:
         text = sf.llreplace(text)
     
@@ -62,8 +66,7 @@ def main():
     if 's' in words['cequin']:
         text = sf.sreplace(text)
 
-    #if they write <c>/<qu> with <k>, replace <k> with <c>/<qu>,
-    #depending on following character
+    #if they write velar stop as <k>, replace with <c>/<qu>
     if 'k' in words['calli']:
         text = sf.kreplace(text)
     
@@ -80,8 +83,9 @@ def main():
     #add spanish words back from list, one at a time
     text = sf.spanish_addback(text, esp_list)
     
+    #write the text in the output file
     with open(output_file, 'w', encoding='utf8') as f:
-        f.write(text[1:])
+        f.write(text[1:]) #for some reason the first character repeats itself, [1:] is to prevent that
         
     print('\nTerminado')
     
