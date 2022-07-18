@@ -14,7 +14,9 @@ def main():
     'cequin': '', 
     'cahci': '', 
     'ahui': '',
-    'matizceh': ''
+    'matizceh': '',
+    'huallauh': '',
+    'itta': ''
     }
     
     #ask how to write the above words to collect info on source orthography
@@ -70,15 +72,22 @@ def main():
     if 'k' in words['calli']:
         text = sf.kreplace(text)
     
-    #if they write <h> with <j>, replace
+    #if they write glottal fricative with <j>, replace with <h>
     if 'j' in words['cahci']:
         text = text.replace('j', 'h')
     
-    #if they write <hu>/<uh> with <w>, replace
+    #if they write labiovelar approximant with <w>, replace with <hu>/<uh>
     if 'w' in words['ahui']:
         text = sf.wreplace(text)
     elif 'aui' in words['ahui']:
         text = sf.ureplace(text)
+      
+    #take care of edge-case double letters
+    if words['itta'] == 'ita':
+        text = text.replace('ita', 'itta')
+    if 'ala' in words['huallauh']:
+        text = text.replace('hualah', 'huallah')
+        text = text.replace('hualauh', 'huallauh')
     
     #add spanish words back from list, one at a time
     text = sf.spanish_addback(text, esp_list)
