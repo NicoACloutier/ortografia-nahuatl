@@ -58,6 +58,7 @@ def sehreplace(text):
     text = re.sub(seh_pattern, 'ZCEH', text)
     return text
     
+#replace <kw> with <cu>/<uc>
 def kwreplace(text):
     coda_pattern = re.compile('kw(?![aeiouAEIOU])')
     text = re.sub(coda_pattern, 'uc', text)
@@ -68,6 +69,7 @@ def kwreplace(text):
     text = text.replace('KW', 'CU')
     return text
 
+#replace word-final <li> with <lli>
 def llreplace(text):
     ll_pattern = re.compile('(?<![tT])li(?=[- .,?:!;])')
     text = re.sub(ll_pattern, 'lli', text)
@@ -75,6 +77,7 @@ def llreplace(text):
     text = re.sub(ll_pattern, 'LLI', text)
     return text
     
+#replace <s> with <c>/<z>
 def sreplace(text):
     c_pattern = re.compile('s(?=[eiEI])')
     text = re.sub(c_pattern, 'c', text)
@@ -84,6 +87,7 @@ def sreplace(text):
     text = text.replace('S', 'Z')
     return text
 
+#replace <k> with <c>/<qu>
 def kreplace(text):
     kc_pattern = re.compile('k(?=[eiEI])')
     text = re.sub(kc_pattern, 'qu', text)
@@ -94,7 +98,8 @@ def kreplace(text):
     text = text.replace('k', 'c')
     text = text.replace('K', 'C')
     return text
-        
+  
+#replace <w> with <hu>/<uh>
 def wreplace(text):
     w_pattern = re.compile('w(?=[aeioAEIO])')
     text = re.sub(w_pattern, 'hu', text)
@@ -104,15 +109,20 @@ def wreplace(text):
     text = re.sub(w_pattern, 'HU', text)
     coda_w_pattern = re.compile('W(?=[A-Z])')
     text = re.sub(coda_w_pattern, 'UH', text)
-    text = text.replace('W', 'Hu')
-    text = text.replace('w', 'hu')
+    text = text.replace('W', 'UH')
+    text = text.replace('w', 'uh')
     return text
     
+#replace <u> with <hu>/<uh>
 def ureplace(text):
-    u_pattern = re.compile('(?<![qc])u(?=[aeioAEIO])')
+    u_pattern = re.compile('(?<![qcQC])u(?=[aeioAEIO])')
     text = re.sub(u_pattern, 'hu', text)
-    u_pattern = re.compile('(?<![qc])U(?=[aeioAEIO])')
+    u_pattern = re.compile('(?<![qcQC])U(?=[aeio])')
     text = re.sub(u_pattern, 'Hu', text)
+    u_pattern = re.compile('(?<![qcQC])U(?=[AEIO])')
+    text = re.sub(u_pattern, 'HU', text)
     coda_u_pattern = re.compile('(?<![qhcQHC])u')
     text = re.sub(coda_u_pattern, 'uh', text)
+    coda_u_pattern = re.compile('(?<![qhcQHC])U')
+    text = re.sub(coda_u_pattern, 'UH', text)
     return text
