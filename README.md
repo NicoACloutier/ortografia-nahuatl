@@ -1,7 +1,7 @@
 # ortografia-nahuatl
 Castellano: esto es una herramienta para convertir texto náhuatl escribido en una ortografía moderna a la ortografía clasical. La meta es de ayudar a normalizar corpus largos a una sola ortografía para asistir proyectos de la lingüística computacional relacionados con el náhuatl.
 
-Para usarlo, simplemente abra la línea de comandos y teclee 'python main.py' (sin los apóstrofos). Primero, tendrá que escribir algunas palabras náhuatl en la ortografía en que el texto está escribido ahora, para que la computadora aprenda las reglas de la ortografía. Luego, habrá que dar el nombre del archivo del texto que se quiere convertir. Asegúrese que el archivo está en la misma carpeta que el programa y que es un archivo de texto (que termina con .txt). Asegúrese también que al final del nombre del archivo está escribido '.txt'. Después, habrá que entrar el nombre del archivo donde será escribido el texto convertido. Este nombre debe también terminar con '.txt'.
+Para usarlo, simplemente abra la línea de comandos y teclee 'python main.py' (sin los apóstrofos). Primero, se le pedirá a escribir algunas palabras náhuatl en la ortografía en que el texto está escribido ahora, para que la computadora aprenda las reglas de la ortografía. Luego, habrá que dar el nombre del archivo del texto que se quiere convertir. Asegúrese que el archivo está en la misma carpeta que el programa y que es un archivo de texto (que termina con .txt). Asegúrese también que al final del nombre del archivo está escribido '.txt'. Después, habrá que entrar el nombre del archivo donde será escribido el texto convertido. Este nombre debe también terminar con '.txt'.
 
 
 
