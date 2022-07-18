@@ -46,6 +46,11 @@ def main():
     text = sf.wreplace(text)
     text = sf.ureplace(text)
     
+    #normalize some edge cases, etc
+    text = text.replace('uh', 'h')
+    text = text.replace('itta', 'ita')
+    text = text.replace('huallah', 'hualah')
+    
     #add spanish words back from list, one at a time
     text = sf.spanish_addback(text, esp_list)
     
