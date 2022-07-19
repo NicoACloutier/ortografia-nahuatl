@@ -52,7 +52,7 @@ def replace_diacritics(text):
     
 #replace variations of irrealis plural suffix with <zceh>
 def sehreplace(text):
-    seh_pattern = re.compile('(?<![-^ .,?:!;sz])[cs]e[hj]?(?=[- .,?:!;]$)')
+    seh_pattern = re.compile('(?<![-^ .,?:!;sz])[cs]e[hj]?(?=[- .,?:!;$])')
     text = re.sub(seh_pattern, 'zceh', text)
     seh_pattern = re.compile('(?<![-^ .,?:!;SZsz])[CS]E[HJ]?(?=[- .,?:!;$])')
     text = re.sub(seh_pattern, 'ZCEH', text)
